@@ -1,0 +1,24 @@
+name: Fix mvnw permission and deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set executable permission for mvnw
+        run: chmod +x mvnw
+
+      - name: Push fixed permissions
+        run: |
+          git config user.name "Yash Patel"
+          git config user.email "yash@example.com"
+          git add mvnw
+          git commit -m "Set mvnw as executable for Render"
+          git push
