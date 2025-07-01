@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Newsletter Subscription</title>
+</head>
+<body>
+  <h2>Subscribe to our Newsletter</h2>
+  <form id="newsletterForm">
+    <input type="email" name="email" placeholder="Enter your email" required>
+    <button type="submit">Subscribe</button>
+  </form>
+
+  <script>
+    document.getElementById("newsletterForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const data = {
+        email: formData.get("email")
+      };
+
+      fetch("http://localhost:8080/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(response => {
+        alert("Subscribed successfully!");
+        console.log(response);
+      })
+      .catch(error => {
+        alert("Error subscribing");
+        console.error(error);
+      });
+    });
+  </script>
+</body>
+</html>
